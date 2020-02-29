@@ -55,12 +55,11 @@ TeamViewer 个人版虽然免费，但时不时会出现服务器宕机的情况
 
 **注意: 请严格遵守你所在地区的相关法律法规, 不要将 Ahri 用于违法犯罪行为(尤其是科学上网); 否则后果自负, 毕竟技术无罪, 最坏的情况我会清除源码.**
 
- 
 ## <a id="situation">Ahri 的使用场景</a>
 
 Ahri 适用于但不局限于以下场景，ta 可以解决这些问题。
 
-**场景一**
+### 场景一
 
 你的工作内容需要使用到公司内网，但由于外因，没有 VPN 或根本无法使用。
 
@@ -68,11 +67,11 @@ TeamViewer 无法连接到公司内网的电脑或使用时及其卡顿。
 
 作为开发，需要使用到几个中间件，而它们都在公司内网。
 
-**场景二**
+### 场景二
 
 因商务合作需要使用几家合作公司的内网环境，频繁切换 VPN 配置非常麻烦。
 
-**场景三**
+### 场景三
 
 你所在的网络环境对一些公网域名或 IP 进行了拦截，导致你无法使用它们。
 
@@ -146,7 +145,7 @@ baidu.com L
 我公司内网（LAN 1）中有一个 ahri-client 是 B，
 别人公司内网（LAN 2）中有一个 ahri-client 是 C。
 
-**场景一 & 场景二**
+#### 场景一 & 场景二
 
 这两个场景是最常见的 VPN 使用场景，只不过场景二略复杂一点。
 
@@ -163,14 +162,13 @@ A -> LAN 1，然后原路返回。
 A -> S -> C -> LAN 2， 然后原路返回。
 我也可以正常访问任何公网资源，A -> Internet。
 
-**场景三**
+#### 场景三
 
 对这个场景的处理其实是我在实现场景一、二的过程中顺带写出来的衍生物。
 主要就是你所在的网络环境会对一些公网资源的请求进行拦截。
 A -> Internet 这条路不通了。所以换线为 A -> S -> Internet。
 
 希望我对上面的场景的解决描述的足够清楚。
-
 
 ![示意图](https://github.com/GavinGuan24/ahri/blob/master/img/a0.jpg)
 
@@ -180,7 +178,7 @@ A -> Internet 这条路不通了。所以换线为 A -> S -> Internet。
 
 详细参数与解释仅需要在命令行下执行对应的帮助程序（**因为 Windows 的限制，需要将 ahri-client 与 ahri-server 先重命名为 ahri-client.exe 与 ahri-server.exe**）
 
-```
+```bash
 客户端
 ahri-client -h
 
@@ -193,7 +191,7 @@ ahri-client.exe -h
 ahri-server.exe -h
 ```
 
-**方法一**
+### 方法一
 
 直接运行 ahri-client / ahri-server, 参数如下.
 
@@ -254,7 +252,7 @@ Parameters:
 使用 ahri-client, 你几乎仅配置 ahri.hosts 即可使用.
 使用 ahri-server, 你需要 openssl 帮你生成 RSA 公私钥对, 如果你是 *nix 环境, 可以直接调用 `bash gen_rsa_keys.sh`.
 
-**方法二**
+### 方法二
 
 为了降低配置难度，压缩包中已包含 start.sh，stop.sh 。
 仅需要修改必要的参数即可在 *nix 环境中使用。
@@ -266,7 +264,6 @@ Parameters:
 
 Ahri 其实很简单，但对于不熟悉终端的童鞋还是太难了，那么跟着这个[【实践教程】](https://github.com/GavinGuan24/ahri/blob/master/core/ahri_guide.md)，你可以学习到基础用法。
 
-
 ## <a id="Q_A">Q & A</a>
 
 我已测试并正常使用该工具多时，有任何意见与建议或者问题，请 open 一个 [issues](https://github.com/GavinGuan24/ahri/issues)。
@@ -276,7 +273,7 @@ Ahri 其实很简单，但对于不熟悉终端的童鞋还是太难了，那么
 ahri-client 可以使用最长 2 个 ASCII 字符（你就当做两个英文字母好了）来命名自身。同时 'S'， 'L'， '-'， '|' 均是系统保留名，禁止使用。
 为什么最长 2 个字符？由 ARP 决定的。如此，一台服务器已经可以选 (256^2 - 4) 个客户端名，足够使用。
 
-### windows 的命令行中无法运行 Ahri 的二进制文件
+### Windows 的命令行中无法运行 Ahri 的二进制文件
 
 因为 Ahri 的交叉编译脚本中，默认使用 ahri-client 与 ahri-server 这两个名字命名二进制文件，而 windows 要求可执行文件以 `exe` 作为后缀名。
 所以，将 ta 们重命名加上 `.exe` 即可。
@@ -301,5 +298,3 @@ ServerAliveInterval 30
 然后通过
 ssh user@server.test.com 就可以愉快的使用 Ahri 代理登录了。
 ```
-
-

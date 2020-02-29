@@ -1,6 +1,6 @@
 # Ahri Protocol
 
-下面的两个协议组成了 Ahri Protocol. 
+下面的两个协议组成了 Ahri Protocol.  
 Ahri Protocol 是基于 TCP 协议实现的.
 
 ## 1. Ahri Registe Protocol
@@ -25,7 +25,6 @@ client 拼接 registe request (byte 数组), 使用 rsa public key 加密后发�
 |:--|:--|
 |len(x)|获取 x 的长度|
 |byteArr(x)|获取 x 的 byte 数组|
-
 
 需要准备的参数:
 
@@ -77,13 +76,11 @@ Ahri Frame Protocol (AFP) 用于协调 Ahri Client 与 Ahri Server 之间的通�
 因为这里的模型已经简化为
 
 - Ahri Client: 发起或处理(广义上的)请求.
-- Ahri Server: 处理或转发请求. 
+- Ahri Server: 处理或转发请求.
 
 他们之间交互数据的传递流程与上述类似. 且对单个 TCP 连接经行多路复用.
 
 所以在此引入这个概念 **Ahri Frame**. 对每个(虚拟的)连接的数据切片后进行传输.
-
-
 
 ### 2.1 AFP 如何运作
 
@@ -103,7 +100,7 @@ Ahri Client 与 Ahri Server 在 ARP 之后就有了一个可靠的 TCP 连接. �
 
 #### 2.1.3 "应用连接" 在适当的时候被持有者主动关闭
 
-我希望 "应用连接" 在首次交互后保留一段时间, 若后续无交互的时长达到一个预定值(例如: 3秒), 则由 "应用连接" 的持有者自行关闭该连接. 
+我希望 "应用连接" 在首次交互后保留一段时间, 若后续无交互的时长达到一个预定值(例如: 3秒), 则由 "应用连接" 的持有者自行关闭该连接.
 
 #### 2.1.4 Ahri Frame
 
@@ -114,16 +111,15 @@ Ahri Client 与 Ahri Server 在 ARP 之后就有了一个可靠的 TCP 连接. �
 |type / value|0x24|uint8|string|string|uint64|uint16|[ ]byte|
 |byte len|1|1|2|2|8|2|variable<= AfpFrameMaxLen - AfpHeaderLen|
 
-
 - protocol flag: AFP header 的标识.
 - frame type: 帧类型, 转发时变该值为对应的 proxy 类型
-    - 0x00: heartbeat
-    - 0x01: direct
-    - 0x02: proxy
-    - 0x03: dial
-    - 0x04: dial ack
-    - 0x05: dial proxy
-    - 0x06: dial proxy ack
+  - 0x00: heartbeat
+  - 0x01: direct
+  - 0x02: proxy
+  - 0x03: dial
+  - 0x04: dial ack
+  - 0x05: dial proxy
+  - 0x06: dial proxy ack
 - from: 帧的来源
 - to: 帧的终点
 - conn ID: 请求的唯一ID, 由发起者生成, 转发时不改变该值
@@ -132,7 +128,7 @@ Ahri Client 与 Ahri Server 在 ARP 之后就有了一个可靠的 TCP 连接. �
 
 ##### 2.1.4.2 内容说明
 
-**Ahri Frame** 的头部 (payload 以外的部分) 仅使用 AfpHeaderLen 个字节. 
+**Ahri Frame** 的头部 (payload 以外的部分) 仅使用 AfpHeaderLen 个字节.
 
 **protocol flag** 与 **payload len** 保证实现者能够成功的从数据流中分辨出一个个的 Ahri Frame.
 
@@ -176,11 +172,9 @@ A <- S('B')          direct
 
 **conn ID** 是由请求的发起者(一个 client)生成的唯一的ID, 用于标识连接, uint64 保证在使用中不会重复(起码用到你生命的终点🤣)
 
-
 **payload len** 就是说明后面的 **payload** 长度的.
 
 **payload** 就是 "应用连接" 传输的内容, AFP 约定 AF 最大 AfpFrameMaxLen bytes, 头 AfpHeaderLen bytes, 所以 **payload** 最大 AfpFrameMaxLen - AfpHeaderLen bytes.
-
 
 ##### 2.1.4.3 特殊的帧
 
@@ -201,5 +195,3 @@ dial ack: payload 为一个字节, 0x00 表示应答成功, 0x01 表示应答失
 
 dial proxy: payload 格式与 dial 完全一致
 dial proxy ack: payload 格式与 dial proxy 完全一致
-
-

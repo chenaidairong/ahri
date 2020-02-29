@@ -8,7 +8,6 @@ nohup ./ahri-client \
 -m 0 \
 -s5ip 127.0.0.1 \
 -s5p 23456 \
--f ahri.hosts \
 -L 3 \
 -T 5 \
 >./a.log 2>&1 &
