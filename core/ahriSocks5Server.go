@@ -235,12 +235,12 @@ func NewAhriSocks5Server(socks5IP, socks5Port, ahriHostsPath string, ahriClient 
 		}
 	}
 
-	if ahriHostsFileInfo, e := os.Stat(ahriHostsPath); e != nil {
-		Log.Crashf("Invalid Ahri Hosts File(%s), Err(%v).", ahriHostsPath, e)
-	} else {
-		if ahriHostsFileInfo.IsDir() {
-			Log.Crashf("Your Ahri Hosts File(%s) is a Folder.", ahriHostsPath)
-		}
+	//if ahriHostsFileInfo, e := os.Stat(ahriHostsPath); e != nil {
+	//	Log.Crashf("Invalid Ahri Hosts File(%s), Err(%v).", ahriHostsPath, e)
+	//} else {
+	//	if ahriHostsFileInfo.IsDir() {
+	//		Log.Crashf("Your Ahri Hosts File(%s) is a Folder.", ahriHostsPath)
+	//	}
 	}
 
 	ahriSocks5Server := &AhriSocks5Server{}

@@ -185,7 +185,7 @@ ahri-client -h
 服务端
 ahri-server -h
 
-# windows 下
+# Windows 下
 
 ahri-client.exe -h
 ahri-server.exe -h
@@ -199,7 +199,7 @@ ahri-server.exe -h
 Usage: ./ahri-client <server-info> <client-info> [socks5-cfg] [global-cfg]
     server-info: -sip serverIp, -sp serverPort, -k serverPassword
     client-info: -n clientName, -m clientMode
-    socks5-cfg:  -s5ip socks5Ip, -s5p socks5Port, -f ahriHostsFile
+    socks5-cfg:  -s5ip socks5Ip, -s5p socks5Port
     global-cfg: -L logLevel, -T timeoutUnitSec
 
 Parameters:
