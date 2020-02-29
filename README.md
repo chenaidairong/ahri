@@ -19,10 +19,10 @@ Ahri 只想做好三件事。
 - [编写 Ahri 的初衷](#original_intention)
 - [Ahri 的使用场景](#situation)
 - [Ahri 的工作原理](#principle)
-    - [ahri-server & ahri-client](#server_client)
-    - [Ahri Protocal](#ahri_protocal)
-    - [ahri.hosts 示例](#ahri_hosts_examples)
-    - [场景解析](#analysis)
+- [ahri-server & ahri-client](#server_client)
+  - [Ahri Protocal](#ahri_protocal)
+  - [ahri.hosts 示例](#ahri_hosts_examples)
+  - [场景解析](#analysis)
 - [Ahri 的用法](#usage)
 - [Ahri http(s)代理实践](#practice)
 - [Q & A](#Q_A)
@@ -92,9 +92,9 @@ Ahri 服务由两个二进制程序来提供，它们是 ahri-server，ahri-clie
 - ahri-server 负责响应来自 ahri-client 的请求，或者转发一个 ahri-client 的请求给另一个 ahri-client。
 
 - ahri-client 负责发起请求，或者响应另一个 ahri-client 的请求。ta 有三个模式。
-    - take：启动一个 socks5 服务来接受本地的所有 TCP 请求；再按配置好的映射文件（ahri.hosts）决定采用上面的三种流量目的地中的哪一个。
-    - give：仅负责响应来自其他 ahri-client 的请求。
-    - trade：同时支持上面两种的模式。
+  - take：启动一个 socks5 服务来接受本地的所有 TCP 请求；再按配置好的映射文件（ahri.hosts）决定采用上面的三种流量目的地中的哪一个。
+  - give：仅负责响应来自其他 ahri-client 的请求。
+  - trade：同时支持上面两种的模式。
 
 ahri-client 采用主动注册到 ahri-server 的方式来进行连接，而 ahri-server 会对数个 ahri-client 进行管理。
 ahri-client 注册到 ahri-server 后，它们之间会有一个内容加密的 TCP 连接。在这个连接中会传递心跳包与各类数据包。
@@ -117,9 +117,11 @@ AFP 定义了 ahri-client 与 ahri-server 应该怎样交互数据包。
 
 #### <a id="ahri_hosts_examples">ahri.hosts 示例</a>
 
+> ahri.hosts已是过时内容，并且其以及在0.9.3-K中移除。如若必须使用，请使用[原始分支](https://github.com/GavinGuan24/ahri)
+
 我们假设自己的客户端名为 'A', 另一个客户端名为 'B', 且均注册至服务端 S, 以下就是 ahri.hosts 文件的示例.
 
-```
+```hosts
 # 转发本地请求至服务端
 youtube.com S
 
@@ -176,7 +178,7 @@ A -> Internet 这条路不通了。所以换线为 A -> S -> Internet。
 
 我已经对常用的系统完成了源码编译的工作, 你应该可以在 [releases](https://github.com/GavinGuan24/ahri/releases/tag/v0.9.3) 中找到可运行在你系统上的版本. 如果没有, 请自行从源码编译(go1.12.1+).
 
-详细参数与解释仅需要在命令行下执行对应的帮助程序（**因为 windows 的限制，需要将 ahri-client 与 ahri-server 先重命名为 ahri-client.exe 与 ahri-server.exe**）
+详细参数与解释仅需要在命令行下执行对应的帮助程序（**因为 Windows 的限制，需要将 ahri-client 与 ahri-server 先重命名为 ahri-client.exe 与 ahri-server.exe**）
 
 ```
 客户端
@@ -195,7 +197,7 @@ ahri-server.exe -h
 
 直接运行 ahri-client / ahri-server, 参数如下.
 
-```
+```bash
 Usage: ./ahri-client <server-info> <client-info> [socks5-cfg] [global-cfg]
     server-info: -sip serverIp, -sp serverPort, -k serverPassword
     client-info: -n clientName, -m clientMode
@@ -204,50 +206,48 @@ Usage: ./ahri-client <server-info> <client-info> [socks5-cfg] [global-cfg]
 
 Parameters:
   -L int
-    	the log level, 0 ~ 3 ==> debug, info, warn, error (default 3)
+        the log level, 0 ~ 3 ==> debug, info, warn, error (default 3)
   -T int
-    	the timeout of one-way communication time interval between an AhriClient and an AhriServer;
-    	Special: AhriClient Dial timeout = 3T, heartbeat timeout = 2T (default 5)
-  -f string
-    	the ahri hosts file of this ahri client (default "ahri.hosts")
+        the timeout of one-way communication time interval between an AhriClient and an AhriServer;
+        Special: AhriClient Dial timeout = 3T, heartbeat timeout = 2T (default 5)
   -k string
-    	the password of an ahri server
+        the password of an ahri server
   -m int
-    	the work mode of this ahri client, 0: Take, 1: Give, 2: Trade
+        the work mode of this ahri client, 0: Take, 1: Give, 2: Trade
   -n string
-    	the name of this ahri client
+        the name of this ahri client
   -s5ip string
-    	the socks5 IP of this ahri client (default "127.0.0.1")
+        the socks5 IP of this ahri client (default "127.0.0.1")
   -s5p string
-    	the socks5 port of this ahri client (default "23456")
+        the socks5 port of this ahri client (default "23456")
   -sip string
-    	the IP of an ahri server
+        the IP of an ahri server
   -sp string
-    	the port of an ahri server
+        the port of an ahri server
 
 ```
 
-```
+```bash
 Usage: ./ahri-server <server-info> [global-cfg]
     server-info: -ip serverIp, -p serverPort, -k serverPassword, -a rsaPrivateKey, -b rsaPublicKey
     global-cfg: -L logLevel, -T timeoutUnitSec
 
 Parameters:
   -L int
-    	the log level, 0 ~ 3 ==> debug, info, warn, error (default 3)
+        the log level, 0 ~ 3 ==> debug, info, warn, error (default 3)
   -T int
-    	the timeout of one-way communication time interval between an AhriClient and an AhriServer;
-    	Special: AhriClient Dial timeout = 3T, heartbeat timeout = 2T (default 5)
+        the timeout of one-way communication time interval between an AhriClient and an AhriServer;
+        Special: AhriClient Dial timeout = 3T, heartbeat timeout = 2T (default 5)
   -a string
-    	the private rsa key file of this ahri server (default "rsa_private_key.pem")
+        the private rsa key file of this ahri server (default "rsa_private_key.pem")
   -b string
-    	the public rsa key file of this ahri server (default "rsa_public_key.pem")
+        the public rsa key file of this ahri server (default "rsa_public_key.pem")
   -ip string
-    	the IP of an ahri server
+        the IP of an ahri server
   -k string
-    	the password of an ahri server
+        the password of an ahri server
   -p string
-    	the port of an ahri server
+        the port of an ahri server
 
 ```
 
@@ -287,7 +287,7 @@ ahri-client 可以使用最长 2 个 ASCII 字符（你就当做两个英文字�
 
 下面是 ssh 使用 nc 来对接 Ahri 的例子。
 
-```
+```bash
 现在本地 socks5 监听代理是 socks5://127.0.0.1:23456
 自己服务器是server.test.com
 
