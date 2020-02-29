@@ -17,7 +17,7 @@ func init() {
 		fmt.Fprintf(flag.CommandLine.Output(), `Usage: %s <server-info> <client-info> [socks5-cfg] [global-cfg]
     server-info: -sip serverIp, -sp serverPort, -k serverPassword
     client-info: -n clientName, -m clientMode
-    socks5-cfg:  -s5ip socks5Ip, -s5p socks5Port, -f ahriHostsFile
+    socks5-cfg:  -s5ip socks5Ip, -s5p socks5Port
     global-cfg: -L logLevel, -T timeoutUnitSec
 
 Parameters:
@@ -54,7 +54,7 @@ func main() {
 
 	flag.StringVar(&socks5Ip, "s5ip", "127.0.0.1", "the socks5 IP of this ahri client")
 	flag.StringVar(&socks5Port, "s5p", "23456", "the socks5 port of this ahri client")
-	flag.StringVar(&ahriHostsPath, "f", "ahri.hosts", "the ahri hosts file of this ahri client")
+	//flag.StringVar(&ahriHostsPath, "f", "ahri.hosts", "the ahri hosts file of this ahri client")
 	flag.Parse()
 
 	if serverIp == "" || serverPort == "" || serverPassword == "" || clientName == "" {
