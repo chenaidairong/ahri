@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"crypto/aes"
 	"fmt"
-	"github.com/GavinGuan24/ahri/core"
+	"github.com/KevinZonda/ahri/core"
 	"time"
 )
 

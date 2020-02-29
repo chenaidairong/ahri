@@ -241,7 +241,7 @@ func NewAhriSocks5Server(socks5IP, socks5Port, ahriHostsPath string, ahriClient 
 	//	if ahriHostsFileInfo.IsDir() {
 	//		Log.Crashf("Your Ahri Hosts File(%s) is a Folder.", ahriHostsPath)
 	//	}
-	}
+	//}
 
 	ahriSocks5Server := &AhriSocks5Server{}
 	var listener net.Listener

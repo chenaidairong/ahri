@@ -2,7 +2,7 @@ package log
 
 import (
 	"fmt"
-	"github.com/GavinGuan24/ahri/core"
+	"github.com/KevinZonda/ahri/core"
 	"time"
 )
 

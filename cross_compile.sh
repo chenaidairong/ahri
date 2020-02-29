@@ -5,13 +5,13 @@ goVersion=`go version`
 echo "Your go version is '$goVersion', We suggest using 'go1.12.1 +'"
 echo ""
 
-cd $GOPATH/src/github.com/GavinGuan24/ahri/
+cd $GOPATH/src/github.com/KevinZonda/ahri/
 rm -rf releases
 mkdir releases
 
 cd ./product/version
 version=`go run version.go`
-cd $GOPATH/src/github.com/GavinGuan24/ahri/
+cd $GOPATH/src/github.com/KevinZonda/ahri/
 
 # $1 os, $2 arch
 function build() {
@@ -25,7 +25,7 @@ function build() {
   cp ./ahri.hosts ../../releases/client
   cp ./start.sh ../../releases/client
   cp ./stop.sh ../../releases/client
-  cd $GOPATH/src/github.com/GavinGuan24/ahri/
+  cd $GOPATH/src/github.com/KevinZonda/ahri/
 
   cd ./product/server
   CGO_ENABLED=0 GOOS=$1 GOARCH=$2 go build -o ahri-server
@@ -35,12 +35,12 @@ function build() {
   cp ./gen_rsa_keys.sh ../../releases/server
   cp ./start.sh ../../releases/server
   cp ./stop.sh ../../releases/server
-  cd $GOPATH/src/github.com/GavinGuan24/ahri/
+  cd $GOPATH/src/github.com/KevinZonda/ahri/
 
   cd ./releases
   tar zcf "ahri_"$version"_"$1"_"$2".tgz" ./client ./server
   rm -rf ./client ./server
-  cd $GOPATH/src/github.com/GavinGuan24/ahri/
+  cd $GOPATH/src/github.com/KevinZonda/ahri/
   echo "[OK] OS: $1 , ARCH: $2"
   echo "----------------------------"
   echo

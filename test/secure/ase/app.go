@@ -3,7 +3,7 @@ package main
 import (
 	"crypto/aes"
 	"fmt"
-	"github.com/GavinGuan24/ahri/core"
+	"github.com/KevinZonda/ahri/core"
 )
 
 func main() {
